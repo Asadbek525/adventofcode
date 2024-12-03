@@ -1,6 +1,9 @@
+/*
+!/*.*
+*.exe
+
 input.txt
 output.txt
-main
-main.exe
 
-*.exe
+.idea
+.vscode

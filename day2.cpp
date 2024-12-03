@@ -8,13 +8,13 @@ using namespace std;
 bool sorted(vector<int> &v) {
     bool ok1 = true;
     for (int i = 1; i < v.size(); i++) {
-        if (v[i] <= v[i - 1]) {
+        if (v[i] < v[i - 1]) {
             ok1 = false;
         }
     }
     bool ok2 = true;
     for (int i = 1; i < v.size(); i++) {
-        if (v[i] >= v[i - 1]) {
+        if (v[i] > v[i - 1]) {
             ok2 = false;
         }
     }
@@ -25,13 +25,12 @@ bool check(vector<int> v) {
     if (!sorted(v)) {
         return false;
     }
-    int c = 0;
     for (int i = 1; i < v.size(); i++) {
-        if (abs(v[i] - v[i - 1]) > 3) {
-            c++;
+        if (abs(v[i] - v[i - 1]) == 0 or abs(v[i] - v[i - 1]) > 3) {
+            return false;
         }
     }
-    return c < 2;
+    return true;
 }
 
 vector<int> split(string &s) {
@@ -49,6 +48,12 @@ vector<int> split(string &s) {
     return ans;
 }
 
+void print(vector<int> &v) {
+    for (int i = 0; i < v.size(); i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
 
 int main() {
     // file intput and output
@@ -58,8 +63,24 @@ int main() {
     int ans = 0;
     string s;
     while (getline(cin, s)) {
-        if (check(split(s))) {
+        vector<int> v = split(s);
+        if (check(v)) {
             ans++;
+        } else {
+            for (int i = 0; i < v.size(); i++) {
+                vector<int> u(v.size() - 1);
+                for (int j = 0; j < v.size(); j++) {
+                    if (j < i) {
+                        u[j] = v[j];
+                    } else if (j > i) {
+                        u[j - 1] = v[j];
+                    }
+                }
+                if (check(u)) {
+                    ans++;
+                    break;
+                }
+            }
         }
     }
     cout << ans << endl;

@@ -72,11 +72,6 @@ int calculate_corners(vector<vector<char> > &v, vector<vector<bool> > &used, int
         )
         corners += 1;
 
-
-
-
-
-
     if (i + 1 < v.size() and v[i + 1][j] == v[i][j]) {
         corners += calculate_corners(v, used, i + 1, j);
     }
